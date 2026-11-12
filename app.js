@@ -75,11 +75,11 @@ function buildHome(){
   $('#search').addEventListener('input',renderLessons);
   // марапаттар
   const gal=$('#gallery');
-  gal.innerHTML=AWARDS.map((a,i)=>`<figure class="aw" data-k="${a[1]}" data-i="${i}"><img src="img/${a[0]}.jpg" alt="${esc(a[2])}"><figcaption><span class="tag ${a[1]}">${{t:'Мұғалім',s:'Оқушы',c:'Біліктілік'}[a[1]]}</span><b>${esc(a[2])}</b><span>${esc(a[3])}</span></figcaption></figure>`).join('');
+  gal.innerHTML=AWARDS.map((a,i)=>`<figure class="aw" data-k="${a[1]}" data-i="${i}"><img src="${a[0]}.jpg" alt="${esc(a[2])}"><figcaption><span class="tag ${a[1]}">${{t:'Мұғалім',s:'Оқушы',c:'Біліктілік'}[a[1]]}</span><b>${esc(a[2])}</b><span>${esc(a[3])}</span></figcaption></figure>`).join('');
   $$('#awTabs button').forEach(b=>{const f=b.dataset.f;const n=f==='all'?AWARDS.length:AWARDS.filter(x=>x[1]===f).length;b.insertAdjacentHTML('beforeend',` <small>${n}</small>`);});
   $$('#awTabs button').forEach(b=>b.onclick=()=>{$$('#awTabs button').forEach(x=>x.classList.toggle('on',x===b));const f=b.dataset.f;$$('.aw').forEach(a=>a.hidden=f!=='all'&&a.dataset.k!==f);});
   const lb=$('#lightbox');let cur=0;
-  const show=i=>{const vis=$$('.aw').filter(a=>!a.hidden).map(a=>+a.dataset.i);if(!vis.length)return;const p=vis.indexOf(i);cur=i;const a=AWARDS[i];$('img',lb).src='img/'+a[0]+'.jpg';$('figcaption',lb).textContent=a[2]+' — '+a[3];lb.hidden=false;lb._vis=vis;lb._p=p;};
+  const show=i=>{const vis=$$('.aw').filter(a=>!a.hidden).map(a=>+a.dataset.i);if(!vis.length)return;const p=vis.indexOf(i);cur=i;const a=AWARDS[i];$('img',lb).src=''+a[0]+'.jpg';$('figcaption',lb).textContent=a[2]+' — '+a[3];lb.hidden=false;lb._vis=vis;lb._p=p;};
   gal.addEventListener('click',e=>{const f=e.target.closest('.aw');if(f)show(+f.dataset.i);});
   $('.lb-x',lb).onclick=()=>lb.hidden=true;lb.addEventListener('click',e=>{if(e.target===lb)lb.hidden=true;});
   $('.lb-n',lb).onclick=()=>{const v=lb._vis;show(v[(lb._p+1)%v.length]);};
