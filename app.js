@@ -114,11 +114,11 @@ function buildHome(){
   $('#search').addEventListener('input',renderLessons);
   // марапаттар
   const gal=$('#gallery');
-  gal.innerHTML=AWARDS.map((a,i)=>`<figure class="aw${a[4]?' isv':''}" data-k="${a[1]}" data-i="${i}"><div class="awm"><img src="img/${a[0]}.jpg" alt="${esc(a[2])}" loading="lazy">${a[4]?'<span class="play">▶</span>':''}</div><figcaption><span class="tag ${a[1]}">${{t:'Мұғалім',s:'Оқушы',c:'Біліктілік',v:'Бейне'}[a[1]]}</span><b>${esc(a[2])}</b><span>${esc(a[3])}</span></figcaption></figure>`).join('');
+  gal.innerHTML=AWARDS.map((a,i)=>`<figure class="aw${a[4]?' isv':''}" data-k="${a[1]}" data-i="${i}"><div class="awm"><img src="${a[0]}.jpg" alt="${esc(a[2])}" loading="lazy">${a[4]?'<span class="play">▶</span>':''}</div><figcaption><span class="tag ${a[1]}">${{t:'Мұғалім',s:'Оқушы',c:'Біліктілік',v:'Бейне'}[a[1]]}</span><b>${esc(a[2])}</b><span>${esc(a[3])}</span></figcaption></figure>`).join('');
   $$('#awTabs button').forEach(b=>{const f=b.dataset.f;const n=f==='all'?AWARDS.length:AWARDS.filter(x=>x[1]===f).length;b.insertAdjacentHTML('beforeend',` <small>${n}</small>`);});
   $$('#awTabs button').forEach(b=>b.onclick=()=>{$$('#awTabs button').forEach(x=>x.classList.toggle('on',x===b));const f=b.dataset.f;$$('.aw').forEach(a=>a.hidden=f!=='all'&&a.dataset.k!==f);});
   const lb=$('#lightbox');let cur=0;
-  const show=i=>{const vis=$$('.aw').filter(a=>!a.hidden).map(a=>+a.dataset.i);if(!vis.length)return;const p=vis.indexOf(i);cur=i;const a=AWARDS[i];const vd=$('video',lb),im=$('img',lb);vd.pause();if(a[4]){im.hidden=true;vd.hidden=false;vd.poster='img/'+a[0]+'.jpg';vd.src='vid/'+a[0]+'.mp4';}else{vd.hidden=true;vd.removeAttribute('src');vd.load();im.hidden=false;im.src='img/'+a[0]+'.jpg';}$('figcaption',lb).textContent=a[2]+' — '+a[3];lb.hidden=false;lb._vis=vis;lb._p=p;};
+  const show=i=>{const vis=$$('.aw').filter(a=>!a.hidden).map(a=>+a.dataset.i);if(!vis.length)return;const p=vis.indexOf(i);cur=i;const a=AWARDS[i];const vd=$('video',lb),im=$('img',lb);vd.pause();if(a[4]){im.hidden=true;vd.hidden=false;vd.poster=''+a[0]+'.jpg';vd.src=''+a[0]+'.mp4';}else{vd.hidden=true;vd.removeAttribute('src');vd.load();im.hidden=false;im.src=''+a[0]+'.jpg';}$('figcaption',lb).textContent=a[2]+' — '+a[3];lb.hidden=false;lb._vis=vis;lb._p=p;};
   gal.addEventListener('click',e=>{const f=e.target.closest('.aw');if(f)show(+f.dataset.i);});
   const close=()=>{lb.hidden=true;$('video',lb).pause();};$('.lb-x',lb).onclick=close;lb.addEventListener('click',e=>{if(e.target===lb)close();});
   $('.lb-n',lb).onclick=()=>{const v=lb._vis;show(v[(lb._p+1)%v.length]);};

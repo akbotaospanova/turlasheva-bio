@@ -51,7 +51,7 @@ const root=$('#practiceRoot');if(!root)return;
 root.innerHTML=`
 <div class="pr-intro">
   <div class="pr-video">
-    <div class="pr-vframe"><video src="vid/v04.mp4" poster="img/v04.jpg" controls playsinline preload="none"></video></div>
+    <div class="pr-vframe"><video src="v04.mp4" poster="v04.jpg" controls playsinline preload="none"></video></div>
     <span class="pr-vcap">▶ Курсқа шақыру бейнесі · 1:19</span>
   </div>
   <div class="pr-goal">
@@ -77,8 +77,8 @@ root.innerHTML=`
     </div>
     <div class="pr-flowside">
       <div class="pr-tip" id="prTip"><b>Ағын</b><p>${esc(P.flow[1].tip)}</p></div>
-      <button class="pr-thumb" data-src="img/p-s04_00.jpg" data-cap="Жасуша органоидтары: талап және оқушы дағдысы"><img src="img/p-s04_00.jpg" alt="Бағалау және дамыту картасы"><span>Түпнұсқа инфографика</span></button>
-      <button class="pr-thumb" data-src="img/p-s05_00.jpg" data-cap="Жасуша органоидтары мен педагогикалық 7 модуль"><img src="img/p-s05_00.jpg" alt="7 модуль"><span>7 модуль инфографикасы</span></button>
+      <button class="pr-thumb" data-src="p-s04_00.jpg" data-cap="Жасуша органоидтары: талап және оқушы дағдысы"><img src="p-s04_00.jpg" alt="Бағалау және дамыту картасы"><span>Түпнұсқа инфографика</span></button>
+      <button class="pr-thumb" data-src="p-s05_00.jpg" data-cap="Жасуша органоидтары мен педагогикалық 7 модуль"><img src="p-s05_00.jpg" alt="7 модуль"><span>7 модуль инфографикасы</span></button>
     </div>
   </div>
 </div>
@@ -91,7 +91,7 @@ root.innerHTML=`
 
 <div class="pr-block">
   <div class="pr-bhead"><span class="pr-chip">Бейнеқойма</span><h3>Сабақ пен апталықтан көріністер</h3></div>
-  <div class="pr-vids">${P.videos.map(v=>`<button class="pr-vc" data-v="${v[0]}" data-cap="${esc(v[1]+' — '+v[2])}"><div><img src="img/${v[0]}.jpg" alt="" loading="lazy"><span class="play">▶</span></div><b>${esc(v[1])}</b><small>${esc(v[2])}</small></button>`).join('')}</div>
+  <div class="pr-vids">${P.videos.map(v=>`<button class="pr-vc" data-v="${v[0]}" data-cap="${esc(v[1]+' — '+v[2])}"><div><img src="${v[0]}.jpg" alt="" loading="lazy"><span class="play">▶</span></div><b>${esc(v[1])}</b><small>${esc(v[2])}</small></button>`).join('')}</div>
 </div>`;
 
 /* lightbox */
@@ -100,7 +100,7 @@ lb.innerHTML='<button class="lb-x" aria-label="Жабу">×</button><button clas
 document.body.appendChild(lb);
 let list=[],pos=0;
 const draw=()=>{const it=list[pos],im=$('img',lb),vd=$('video',lb);vd.pause();
- if(it.v){im.hidden=true;vd.hidden=false;vd.poster='img/'+it.v+'.jpg';vd.src='vid/'+it.v+'.mp4';vd.play().catch(()=>{});}
+ if(it.v){im.hidden=true;vd.hidden=false;vd.poster=''+it.v+'.jpg';vd.src=''+it.v+'.mp4';vd.play().catch(()=>{});}
  else{vd.hidden=true;vd.removeAttribute('src');im.hidden=false;im.src=it.src;}
  $('figcaption',lb).textContent=it.cap+(list.length>1?`  ·  ${pos+1} / ${list.length}`:'');
  $('.lb-p',lb).hidden=$('.lb-n',lb).hidden=list.length<2;};
@@ -114,8 +114,8 @@ document.addEventListener('keydown',e=>{if(lb.hidden)return;if(e.key==='Escape')
 /* modules */
 const showMod=i=>{const m=P.modules[i];
  $('#prMod').innerHTML=`<div class="pm-card" style="--c:${m.col}"><div class="pm-l"><span class="pm-ab">${m.ab}</span><h4>${esc(m.full)}</h4><div class="pm-org"><i></i>Органоид: <b>${esc(m.org)}</b></div><p>${esc(m.t)}</p></div>
- <button class="pm-r" title="Үлкейту"><img src="img/p-mod${i}.jpg" alt="${esc(m.ab)}"></button></div>`;
- $('#prMod .pm-r').onclick=()=>open([{src:'img/p-s05_00.jpg',cap:'Жасуша органоидтары мен педагогикалық 7 модуль'}],0);
+ <button class="pm-r" title="Үлкейту"><img src="p-mod${i}.jpg" alt="${esc(m.ab)}"></button></div>`;
+ $('#prMod .pm-r').onclick=()=>open([{src:'p-s05_00.jpg',cap:'Жасуша органоидтары мен педагогикалық 7 модуль'}],0);
  $$('#prMods button').forEach(b=>b.classList.toggle('on',+b.dataset.i===i));};
 $$('#prMods button').forEach(b=>b.onclick=()=>showMod(+b.dataset.i));showMod(0);
 
@@ -128,7 +128,7 @@ $$('.pr-thumb').forEach(b=>b.onclick=()=>open([{src:b.dataset.src,cap:b.dataset.
 
 /* steps */
 const showStep=i=>{const s=P.steps[i];
- const items=s.imgs.map(n=>({src:'img/p-'+n+'.jpg',cap:s.t}));
+ const items=s.imgs.map(n=>({src:'p-'+n+'.jpg',cap:s.t}));
  $('#prStep').innerHTML=`<div class="ps-text"><span class="ps-n">${String(i+1).padStart(2,'0')}<small>/ ${String(P.steps.length).padStart(2,'0')}</small></span><span class="ps-m">${esc(s.m)}</span><h4>${esc(s.t)}</h4><p>${esc(s.d)}</p>
  <div class="ps-nav"><button class="btn sm ghost" data-d="-1">← Алдыңғы</button><button class="btn sm primary" data-d="1">Келесі →</button></div></div>
  <div class="ps-mosaic n${Math.min(s.imgs.length,9)}">${items.map((it,k)=>`<button data-k="${k}"><img src="${it.src}" alt="${esc(s.t)}" loading="lazy"></button>`).join('')}</div>`;
